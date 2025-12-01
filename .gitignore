@@ -31,7 +31,10 @@ yarn-error.log*
 .pnpm-debug.log*
 
 # env files (can opt-in for committing if needed)
-.env*
+.env
+.env.local
+.env.*.local
+.env*.example
 
 # vercel
 .vercel
@@ -39,3 +42,25 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# IDE and editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.sublime-workspace
+*.sublime-project
+
+# Temporary files
+tmp/
+temp/
+
+# OS files
+Thumbs.db
+.Thumbs.db
+
+# Package manager lock files (optional)
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
