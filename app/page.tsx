@@ -61,15 +61,15 @@ const itemVariants = {
 
 export default function Home() {
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-white dark:bg-popcorn-charred transition-colors duration-300">
       {/* Hero Section */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-popcorn-kernel via-white to-popcorn-butter/20">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-popcorn-kernel via-white to-popcorn-butter/20 dark:from-popcorn-charred dark:via-gray-900 dark:to-popcorn-butter/5">
         <PopcornAnimation />
-        
+
         {/* Animated background blobs */}
         <div className="absolute top-20 left-10 w-72 h-72 bg-popcorn-butter/20 rounded-full blur-3xl animate-pulse -z-10" />
         <div className="absolute bottom-20 right-10 w-72 h-72 bg-popcorn-caramel/20 rounded-full blur-3xl animate-pulse -z-10" />
-        
+
         <div className="relative z-10 text-center px-4 max-w-4xl mx-auto">
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -86,7 +86,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 50 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-6xl md:text-8xl font-bold font-heading text-popcorn-charred mb-6 leading-tight"
+            className="text-6xl md:text-8xl font-bold font-heading text-popcorn-charred dark:text-popcorn-kernel mb-6 leading-tight"
           >
             Make It <span className="text-transparent bg-clip-text bg-gradient-to-r from-popcorn-butter via-popcorn-caramel to-orange-500 drop-shadow-lg">Pop.</span>
           </motion.h1>
@@ -95,7 +95,7 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-            className="text-xl md:text-2xl text-gray-600 mb-10 max-w-2xl mx-auto leading-relaxed"
+            className="text-xl md:text-2xl text-gray-600 dark:text-gray-300 mb-10 max-w-2xl mx-auto leading-relaxed"
           >
             A frontend engineer who turns kernels of ideas into explosive digital experiences.
           </motion.p>
@@ -109,7 +109,7 @@ export default function Home() {
             <motion.div variants={itemVariants} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href="/projects"
-                className="px-8 py-4 bg-gradient-to-r from-popcorn-butter to-popcorn-caramel text-popcorn-charred font-bold rounded-full hover:shadow-2xl transition-all shadow-lg transform hover:-translate-y-1 inline-flex items-center gap-2 group"
+                className="px-8 py-4 bg-white dark:bg-popcorn-charred text-popcorn-charred dark:text-popcorn-kernel font-bold rounded-full border-2 border-popcorn-charred dark:border-popcorn-kernel hover:bg-popcorn-kernel dark:hover:bg-gray-800 transition-all shadow-lg hover:shadow-2xl transform hover:-translate-y-1 inline-flex items-center justify-center"
               >
                 View Projects
                 <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
@@ -119,7 +119,7 @@ export default function Home() {
             <motion.div variants={itemVariants} whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
               <Link
                 href="/contact"
-                className="px-8 py-4 bg-white text-popcorn-charred font-bold rounded-full border-2 border-popcorn-charred hover:bg-popcorn-kernel transition-all shadow-lg hover:shadow-2xl transform hover:-translate-y-1"
+                className="px-8 py-4 bg-white dark:bg-popcorn-charred text-popcorn-charred dark:text-popcorn-kernel font-bold rounded-full border-2 border-popcorn-charred dark:border-popcorn-kernel hover:bg-popcorn-kernel dark:hover:bg-gray-800 transition-all shadow-lg hover:shadow-2xl transform hover:-translate-y-1 inline-flex items-center justify-center"
               >
                 Get in Touch
               </Link>
@@ -143,10 +143,10 @@ export default function Home() {
                 <motion.div
                   key={skill.label}
                   variants={itemVariants}
-                  className="flex items-center gap-2 px-4 py-2 bg-white/50 backdrop-blur-sm rounded-full border border-popcorn-butter/30"
+                  className="flex items-center gap-2 px-4 py-2 bg-white/50 dark:bg-popcorn-charred/50 backdrop-blur-sm rounded-full border border-popcorn-butter/30 dark:border-popcorn-butter/10"
                 >
                   <Icon size={18} className="text-popcorn-caramel" />
-                  <span className="text-sm font-semibold text-popcorn-charred">{skill.label}</span>
+                  <span className="text-sm font-semibold text-popcorn-charred dark:text-popcorn-kernel">{skill.label}</span>
                 </motion.div>
               );
             })}
@@ -170,7 +170,7 @@ export default function Home() {
       </section>
 
       {/* Featured Projects Preview */}
-      <section className="py-24 bg-gradient-to-b from-white to-popcorn-kernel/10 relative overflow-hidden">
+      <section className="py-24 bg-gradient-to-b from-white to-popcorn-kernel/10 dark:from-popcorn-charred dark:to-black/20 relative overflow-hidden">
         {/* Background decoration */}
         <div className="absolute top-0 left-0 w-96 h-96 bg-popcorn-butter/10 rounded-full blur-3xl -z-10" />
         <div className="absolute bottom-0 right-0 w-96 h-96 bg-popcorn-caramel/10 rounded-full blur-3xl -z-10" />
@@ -189,11 +189,11 @@ export default function Home() {
               </span>
             </motion.div>
 
-            <motion.h2 variants={itemVariants} className="text-5xl font-bold font-heading text-popcorn-charred mb-4">
+            <motion.h2 variants={itemVariants} className="text-5xl font-bold font-heading text-popcorn-charred dark:text-popcorn-kernel mb-4">
               Freshly Popped Projects
             </motion.h2>
 
-            <motion.p variants={itemVariants} className="text-gray-600 max-w-2xl mx-auto text-lg">
+            <motion.p variants={itemVariants} className="text-gray-600 dark:text-gray-300 max-w-2xl mx-auto text-lg">
               A selection of my latest and greatest creations, crafted with passion and attention to detail.
             </motion.p>
           </motion.div>
@@ -219,7 +219,7 @@ export default function Home() {
           >
             <Link
               href="/projects"
-              className="inline-flex items-center gap-2 px-8 py-4 bg-gradient-to-r from-popcorn-butter to-popcorn-caramel text-popcorn-charred font-bold rounded-full hover:shadow-2xl transition-all shadow-lg transform hover:scale-105 group"
+              className="px-8 py-4 bg-white dark:bg-popcorn-charred text-popcorn-charred dark:text-popcorn-kernel font-bold rounded-full border-2 border-popcorn-charred dark:border-popcorn-kernel hover:bg-popcorn-kernel dark:hover:bg-gray-800 transition-all shadow-lg hover:shadow-2xl transform hover:-translate-y-1 inline-flex items-center justify-center"
             >
               See All Projects
               <ArrowRight size={20} className="group-hover:translate-x-2 transition-transform" />

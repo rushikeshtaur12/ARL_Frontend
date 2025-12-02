@@ -3,6 +3,8 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import { Send } from "lucide-react";
+import { api } from "@/services/api";
+import { ContactFormData } from "@/types";
 
 export default function ContactForm() {
     const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
@@ -12,21 +14,16 @@ export default function ContactForm() {
         setStatus("loading");
 
         const formData = new FormData(e.currentTarget);
-        const data = Object.fromEntries(formData.entries());
+        const data: ContactFormData = {
+            name: formData.get("name") as string,
+            email: formData.get("email") as string,
+            message: formData.get("message") as string,
+        };
 
         try {
-            const response = await fetch("http://localhost:5000/api/contact", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify(data),
-            });
-
-            if (response.ok) {
-                setStatus("success");
-                (e.target as HTMLFormElement).reset();
-            } else {
-                setStatus("error");
-            }
+            await api.sendContactMessage(data);
+            setStatus("success");
+            (e.target as HTMLFormElement).reset();
         } catch (error) {
             setStatus("error");
         }
@@ -35,7 +32,7 @@ export default function ContactForm() {
     return (
         <form onSubmit={handleSubmit} className="space-y-6 max-w-lg mx-auto">
             <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Name
                 </label>
                 <input
@@ -43,12 +40,12 @@ export default function ContactForm() {
                     name="name"
                     id="name"
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-popcorn-butter focus:ring-2 focus:ring-popcorn-butter/20 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-popcorn-butter focus:ring-2 focus:ring-popcorn-butter/20 outline-none transition-all"
                     placeholder="Your Name"
                 />
             </div>
             <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Email
                 </label>
                 <input
@@ -56,12 +53,12 @@ export default function ContactForm() {
                     name="email"
                     id="email"
                     required
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-popcorn-butter focus:ring-2 focus:ring-popcorn-butter/20 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-popcorn-butter focus:ring-2 focus:ring-popcorn-butter/20 outline-none transition-all"
                     placeholder="you@example.com"
                 />
             </div>
             <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+                <label htmlFor="message" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">
                     Message
                 </label>
                 <textarea
@@ -69,7 +66,7 @@ export default function ContactForm() {
                     id="message"
                     required
                     rows={4}
-                    className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-popcorn-butter focus:ring-2 focus:ring-popcorn-butter/20 outline-none transition-all"
+                    className="w-full px-4 py-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-white focus:border-popcorn-butter focus:ring-2 focus:ring-popcorn-butter/20 outline-none transition-all"
                     placeholder="Let's build something popping..."
                 />
             </div>
@@ -79,8 +76,8 @@ export default function ContactForm() {
                 type="submit"
                 disabled={status === "loading" || status === "success"}
                 className={`w-full py-4 rounded-lg font-bold text-white flex items-center justify-center gap-2 transition-colors ${status === "success"
-                        ? "bg-green-500 hover:bg-green-600"
-                        : "bg-popcorn-caramel hover:bg-yellow-600"
+                    ? "bg-green-500 hover:bg-green-600"
+                    : "bg-popcorn-caramel hover:bg-yellow-600"
                     }`}
             >
                 {status === "loading" ? (

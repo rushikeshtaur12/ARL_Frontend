@@ -6,16 +6,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowLeft, Github, ExternalLink, Star } from "lucide-react";
-
-interface Project {
-    id: number;
-    title: string;
-    description: string;
-    imageUrl: string;
-    tags: string[];
-    link: string;
-    githubLink?: string;
-}
+import { api } from "@/services/api";
+import { Project } from "@/types";
 
 const containerVariants = {
     hidden: { opacity: 0 },
@@ -47,34 +39,8 @@ export default function ProjectDetails() {
     useEffect(() => {
         const fetchProject = async () => {
             try {
-                const res = await fetch(`http://localhost:5000/api/projects/${id}`);
-                if (res.ok) {
-                    const data = await res.json();
-                    setProject(data);
-                } else {
-                    // Fallback dummy data
-                    const dummyProjects: Record<string, Project> = {
-                        "1": {
-                            id: 1,
-                            title: "Movie Database",
-                            description: "A popcorn-worthy movie explorer using TMDB API. Features include search, filtering, and detailed movie information.",
-                            imageUrl: "/placeholder.png",
-                            tags: ["React", "API", "Tailwind"],
-                            link: "#",
-                            githubLink: "#",
-                        },
-                        "2": {
-                            id: 2,
-                            title: "Snack E-commerce",
-                            description: "Order your favorite movie snacks online. Full cart functionality and checkout process.",
-                            imageUrl: "/placeholder.png",
-                            tags: ["Next.js", "Stripe", "Zustand"],
-                            link: "#",
-                            githubLink: "#",
-                        },
-                    };
-                    setProject(dummyProjects[id as string] || null);
-                }
+                const data = await api.getProjectById(id as string);
+                setProject(data);
             } catch (error) {
                 console.error("Failed to fetch project", error);
             } finally {
@@ -113,7 +79,7 @@ export default function ProjectDetails() {
                 >
                     Project Not Found
                 </motion.h1>
-                <Link href="/projects" className="text-popcorn-caramel hover:underline text-lg">
+                <Link href="/projects" className="text-popcorn-caramel dark:text-white hover:underline text-lg">
                     Back to Projects
                 </Link>
             </div>
@@ -124,7 +90,7 @@ export default function ProjectDetails() {
         <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-popcorn-kernel to-white"
+            className="min-h-screen py-20 px-4 sm:px-6 lg:px-8 bg-gradient-to-b from-popcorn-kernel to-popcorn-kernel dark:from-gray-900 dark:to-popcorn-charred transition-colors duration-300"
         >
             <div className="max-w-5xl mx-auto">
                 <motion.div
@@ -136,7 +102,7 @@ export default function ProjectDetails() {
                     <motion.div variants={itemVariants}>
                         <Link
                             href="/projects"
-                            className="inline-flex items-center gap-2 text-popcorn-caramel hover:text-popcorn-charred font-semibold mb-8 transition-colors hover:gap-3 group"
+                            className="inline-flex items-center gap-2 text-popcorn-caramel hover:text-popcorn-charred dark:hover:text-popcorn-kernel font-semibold mb-8 transition-colors hover:gap-3 group"
                         >
                             <ArrowLeft size={20} className="group-hover:-translate-x-1 transition-transform" />
                             Back to Projects
@@ -155,6 +121,7 @@ export default function ProjectDetails() {
                                 fill
                                 className="object-cover"
                                 priority
+                                sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                             />
                         ) : (
                             <motion.div
@@ -163,7 +130,7 @@ export default function ProjectDetails() {
                                 className="text-center text-popcorn-kernel"
                             >
                                 <Star className="w-16 h-16 mx-auto mb-4" />
-                                <h2 className="text-4xl font-bold">{project.title}</h2>
+                                <h2 className="text-4xl font-bold text-popcorn-charred dark:text-popcorn-kernel">{project.title}</h2>
                             </motion.div>
                         )}
                     </motion.div>
@@ -171,12 +138,12 @@ export default function ProjectDetails() {
                     {/* Content card */}
                     <motion.div
                         variants={itemVariants}
-                        className="bg-white rounded-3xl shadow-xl border-2 border-gray-100 p-8 md:p-12"
+                        className="bg-white dark:bg-gray-800 rounded-3xl shadow-xl border-2 border-gray-100 dark:border-gray-700 p-8 md:p-12"
                     >
                         {/* Title */}
                         <motion.h1
                             variants={itemVariants}
-                            className="text-4xl md:text-5xl font-bold font-heading text-popcorn-charred mb-6"
+                            className="text-4xl md:text-5xl font-bold font-heading text-popcorn-charred dark:text-white mb-6"
                         >
                             {project.title}
                         </motion.h1>
@@ -186,7 +153,7 @@ export default function ProjectDetails() {
                             variants={itemVariants}
                             className="mb-10"
                         >
-                            <h2 className="text-2xl font-bold font-heading text-popcorn-charred mb-4">
+                            <h2 className="text-2xl font-bold font-heading text-popcorn-charred dark:text-white mb-4">
                                 Skills & Technologies
                             </h2>
                             <div className="flex flex-wrap gap-3">
@@ -197,7 +164,7 @@ export default function ProjectDetails() {
                                         animate={{ opacity: 1, scale: 1 }}
                                         transition={{ delay: index * 0.1 }}
                                         whileHover={{ scale: 1.1, y: -5 }}
-                                        className="px-6 py-3 bg-gradient-to-r from-popcorn-butter to-popcorn-caramel text-popcorn-charred font-bold rounded-full shadow-lg hover:shadow-xl transition-all"
+                                        className="px-6 py-3 bg-gradient-to-r from-popcorn-butter to-popcorn-caramel text-popcorn-charred dark:text-white font-bold rounded-full shadow-lg hover:shadow-xl transition-all"
                                     >
                                         {tag}
                                     </motion.span>
@@ -208,7 +175,7 @@ export default function ProjectDetails() {
                         {/* Description */}
                         <motion.div
                             variants={itemVariants}
-                            className="text-gray-700 mb-10 text-lg leading-relaxed space-y-4"
+                            className="text-gray-700 dark:text-gray-300 mb-10 text-lg leading-relaxed space-y-4"
                         >
                             <p>{project.description}</p>
                         </motion.div>
@@ -226,9 +193,9 @@ export default function ProjectDetails() {
                                 <Link
                                     href={project.link}
                                     target="_blank"
-                                    className="w-full px-8 py-4 bg-gradient-to-r from-popcorn-butter to-popcorn-caramel text-popcorn-charred font-bold text-lg rounded-xl hover:shadow-lg transition-shadow flex items-center justify-center gap-3 group"
+                                    className="w-full px-8 py-4 bg-gradient-to-r from-popcorn-butter to-popcorn-caramel text-popcorn-charred dark:text-white font-bold text-lg rounded-xl hover:shadow-lg transition-shadow flex items-center justify-center gap-3 group"
                                 >
-                                    <ExternalLink size={20} className="group-hover:rotate-45 transition-transform" />
+                                    <ExternalLink size={20} className="group-hover:rotate-45  transition-transform" />
                                     Live Demo
                                 </Link>
                             </motion.div>
@@ -242,7 +209,7 @@ export default function ProjectDetails() {
                                     <Link
                                         href={project.githubLink}
                                         target="_blank"
-                                        className="w-full px-8 py-4 bg-white text-popcorn-charred font-bold text-lg rounded-xl border-3 border-popcorn-charred hover:bg-gray-50 transition-colors flex items-center justify-center gap-3 group shadow-lg"
+                                        className="w-full px-8 py-4 bg-white dark:bg-gray-800 text-popcorn-charred dark:text-white font-bold text-lg rounded-xl border-3 border-popcorn-charred dark:border-popcorn-kernel hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors flex items-center justify-center gap-3 group shadow-lg"
                                     >
                                         <Github size={20} className="group-hover:-rotate-12 transition-transform" />
                                         View Code

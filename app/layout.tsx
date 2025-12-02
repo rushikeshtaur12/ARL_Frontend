@@ -3,6 +3,7 @@ import { Inter, Poppins } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import ClientWrapper from "@/components/ClientWrapper";
 
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const poppins = Poppins({
@@ -23,12 +24,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${inter.variable} ${poppins.variable} font-sans bg-popcorn-kernel text-popcorn-charred`}>
-        <Navbar />
-        <main className="min-h-screen pt-16">
-          {children}
-        </main>
-        <Footer />
+      <body className={`${inter.variable} ${poppins.variable} font-sans bg-popcorn-kernel text-popcorn-charred dark:bg-popcorn-charred dark:text-popcorn-kernel transition-colors duration-300`}>
+        <ClientWrapper>
+          <Navbar />
+          <main className="min-h-screen pt-16">
+            {children}
+          </main>
+          <Footer />
+        </ClientWrapper>
       </body>
     </html>
   );

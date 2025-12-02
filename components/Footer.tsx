@@ -158,7 +158,7 @@ export default function Footer() {
                     className="flex flex-col md:flex-row justify-between items-center gap-6 text-center md:text-left"
                 >
                     <motion.p variants={itemVariants} className="text-gray-400">
-                        &copy; {new Date().getFullYear()} Popcorn Portfolio. All rights reserved. 🍿
+                        &copy; {new Date().getFullYear()} Popcorn Portfolio. All rights reserved.
                     </motion.p>
 
                     <motion.div variants={itemVariants} className="flex gap-6">

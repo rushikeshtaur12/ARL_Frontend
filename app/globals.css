@@ -1,18 +1,14 @@
 @import "tailwindcss";
 
+@variant dark (&:where(.dark, .dark *));
+
 :root {
   --foreground-rgb: 26, 26, 26;
   --background-start-rgb: 250, 249, 246;
   --background-end-rgb: 255, 255, 255;
 }
 
-body {
-  color: rgb(var(--foreground-rgb));
-  background: linear-gradient(to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-  overflow-x: hidden;
-}
+
 
 @layer utilities {
   .text-balance {
