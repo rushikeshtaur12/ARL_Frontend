@@ -1,6 +1,6 @@
 import { Project, ContactFormData } from "../types";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api";
+const API_BASE_URL = "https://arl-backend-bahsgqpmu-studentconnectcommunity-9508s-projects.vercel.app/api";
 
 export const api = {
     getProjects: async (): Promise<Project[]> => {
