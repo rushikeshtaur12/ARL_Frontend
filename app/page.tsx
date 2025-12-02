@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight, Zap, Code, Palette } from "lucide-react";
+import ThreeScene from "@/components/ThreeScene";
 import PopcornAnimation from "@/components/PopcornAnimation";
 import ProjectCard from "@/components/ProjectCard";
 
@@ -64,6 +65,7 @@ export default function Home() {
     <div className="min-h-screen bg-white dark:bg-popcorn-charred transition-colors duration-300">
       {/* Hero Section */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden bg-gradient-to-br from-popcorn-kernel via-white to-popcorn-butter/20 dark:from-popcorn-charred dark:via-gray-900 dark:to-popcorn-butter/5">
+        <ThreeScene />
         <PopcornAnimation />
 
         {/* Animated background blobs */}
