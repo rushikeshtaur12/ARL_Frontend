@@ -19,6 +19,18 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "**.unsplash.com",
       },
+
+      // 🔥 Add this for your backend image rendering
+      {
+        protocol: "https",
+        hostname: "**.vercel.app",
+      },
+
+      // OPTIONAL → If you ever store images locally or have absolute URLs
+      {
+        protocol: "http",
+        hostname: "localhost",
+      },
     ],
   },
 };
