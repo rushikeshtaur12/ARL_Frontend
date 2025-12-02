@@ -4,7 +4,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/a
 
 export const api = {
     getProjects: async (): Promise<Project[]> => {
-        const response = await fetch(`${API_BASE_URL}/projects`);
+        const response = await fetch(`${API_BASE_URL}/api/projects`);
         if (!response.ok) {
             throw new Error("Failed to fetch projects");
         }
@@ -12,7 +12,7 @@ export const api = {
     },
 
     getProjectById: async (id: string | number): Promise<Project> => {
-        const response = await fetch(`${API_BASE_URL}/projects/${id}`);
+        const response = await fetch(`${API_BASE_URL}/api/projects/${id}`);
         if (!response.ok) {
             throw new Error("Failed to fetch project");
         }
@@ -20,7 +20,7 @@ export const api = {
     },
 
     sendContactMessage: async (data: ContactFormData): Promise<void> => {
-        const response = await fetch(`${API_BASE_URL}/contact`, {
+        const response = await fetch(`${API_BASE_URL}/api/contact`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
