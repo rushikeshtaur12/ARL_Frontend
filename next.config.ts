@@ -20,7 +20,7 @@ const nextConfig: NextConfig = {
         hostname: "**.unsplash.com",
       },
 
-      // 🔥 Add this for your backend image rendering
+      //  Add this for your backend image rendering
       {
         protocol: "https",
         hostname: "**.vercel.app",
